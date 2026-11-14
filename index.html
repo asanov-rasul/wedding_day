@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f9f0e0" />
+    <meta
+      name="description"
+      content="Свадебное приглашение Расула и Фариды — 17 апреля 2027 года."
+    />
+    <title>Расул и Фарида — свадебное приглашение</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <section class="envelope-screen" id="envelope-screen" aria-label="Конверт с приглашением">
+      <button class="envelope-button" id="open-invitation" type="button" aria-label="Открыть приглашение">
+        <img
+          class="envelope-art"
+          src="assets/media/envelope.png"
+          alt="Светлый свадебный конверт с сургучной печатью"
+        />
+        <span class="envelope-hint">Нажмите, чтобы открыть</span>
+      </button>
+    </section>
+
+    <section class="opening-screen" id="opening-screen" aria-label="Открываем приглашение" hidden>
+      <div class="opening-frame">
+        <video class="opening-video" id="opening-video" playsinline muted preload="auto">
+          <source src="assets/media/opening.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <button class="skip-opening" id="skip-opening" type="button">Перейти к приглашению</button>
+    </section>
+
+    <main class="invitation" id="invitation" hidden>
+      <div class="invitation-sheet">
+        <header class="hero reveal">
+          <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-label="Анимированный фон с лебедями">
+            <source src="assets/media/swans.mp4" type="video/mp4" />
+          </video>
+          <div class="hero-content">
+            <p class="hero-kicker">Свадебный день</p>
+            <p class="hero-date">17.04.27</p>
+            <h1><span>Расул</span><i aria-hidden="true">&amp;</i><span>Фарида</span></h1>
+            <p class="hero-note">Две судьбы — одна история</p>
+          </div>
+          <a class="scroll-cue" href="#welcome">Листайте вниз <span aria-hidden="true">⌄</span></a>
+        </header>
+        <img src="assets/reference/noroot.png.webp" alt="" class="bottom_flower_1">
+        <img src="assets/reference/noroot.png (1).webp" alt="" class="bottom_flower_2">
+
+        <section class="welcome paper-panel reveal" id="welcome">
+          <p class="eyebrow">17 · 04 · 2027</p>
+          <h2>Дорогие родные и близкие!</h2>
+          <p>Приглашаем вас разделить с нами радость нашего торжества и стать частью одного из самых счастливых дней в нашей жизни.</p>
+          <p class="welcome-signature">Расул и Фарида</p>
+        </section>
+
+        <section class="countdown-section reveal" aria-labelledby="countdown-title">
+          <img class="ornament" src="assets/reference/ref_tild3637_ChatGPT_Image_May_25.png" alt="" />
+          <h2 id="countdown-title">До нашей встречи осталось</h2>
+          <div class="countdown" id="countdown" aria-live="off">
+            <div><strong id="days">—</strong><span>дней</span></div>
+            <i>:</i>
+            <div><strong id="hours">—</strong><span>часов</span></div>
+            <i>:</i>
+            <div><strong id="minutes">—</strong><span>минут</span></div>
+            <i>:</i>
+            <div><strong id="seconds">—</strong><span>секунд</span></div>
+          </div>
+          <p class="countdown-caption">С нетерпением ждём этого дня</p>
+        </section>
+
+        <section class="schedule-section paper-panel reveal" aria-labelledby="schedule-title">
+          <img class="schedule-corner" src="assets/reference/ref_tild3236_noroot.png" alt="" />
+          <img class="ornament ornament--small" src="assets/reference/ref_tild6661_noroot.png" alt="" />
+          <h2 id="schedule-title">Программа дня</h2>
+          <ol class="timeline">
+            <img class="timeline-flower" src="assets/reference/timeline-rose-small.png" alt="" />
+            <li><time>17:00</time><span>Сбор гостей</span></li>
+            <li><time>18:00</time><span>Церемония никаха</span></li>
+            <li><time>19:00</time><span>Безалкогольные коктейли</span></li>
+            <li><time>20:00</time><span>Ужин</span></li>
+            <li><time>21:00</time><span>Танцы</span></li>
+          </ol>
+        </section>
+
+        <section class="location-section reveal" aria-labelledby="location-title">
+          <h2 id="location-title">Место встречи</h2>
+          <img class="ornament ornament--small" src="assets/reference/ref_tild6661_noroot.png" alt="" />
+          <p class="venue-name">Банкетный зал «Bagt Ýoly»</p>
+          <p class="venue-address">Ашхабад, Туркменистан</p>
+          <img class="venue-illustration" src="assets/reference/venue-illustration.png" alt="Иллюстрация банкетного зала" />
+          <div class="map-frame">
+            <iframe
+              title="Карта проезда к банкетному залу Bagt Ýoly"
+              src="https://www.google.com/maps?q=37.9294794,58.3670686&amp;z=17&amp;output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            ></iframe>
+            <a
+              class="map-open"
+              href="https://www.google.com/maps/place/%D0%91%D0%B0%D0%BD%D0%BA%D0%B5%D1%82%D0%BD%D1%8B%D0%B9+%D0%B7%D0%B0%D0%BB+%22Bagt+%C3%9Doly%22/@37.929328,58.3675699,214m/data=!3m1!1e3!4m6!3m5!1s0x3f700206b49ab5dd:0xca2885a408dbd63a!8m2!3d37.9294794!4d58.3670686!16s%2Fg%2F11g6ywtb3s?entry=ttu&amp;g_ep=EgoyMDI2MTExMC4wIKXMDSoASAFQAw%3D%3D"
+              target="_blank"
+              rel="noreferrer"
+            >Открыть карту ↗</a>
+            <img class="map-frame-art" src="assets/reference/map-frame.svg" alt="" />
+          </div>
+        </section>
+
+        <footer class="closing reveal">
+          <p class="eyebrow">До скорой встречи</p>
+          <h2>Будем рады видеть вас</h2>
+          <p class="closing-names">Расул <span>&amp;</span> Фарида</p>
+          <div class="photo-placeholder" role="img" aria-label="Здесь будет фотография молодожёнов">
+            <span class="placeholder-flower" aria-hidden="true">✿</span>
+            <span>Фотография молодожёнов<br />появится здесь</span>
+          </div>
+        </footer>
+      </div>
+    </main>
+
+    <audio id="background-music" src="assets/media/music.mp3" loop preload="none"></audio>
+    <button class="music-toggle" id="music-toggle" type="button" aria-label="Включить музыку" aria-pressed="false" hidden>
+      <span aria-hidden="true"></span>
+    </button>
+  </body>
+</html>

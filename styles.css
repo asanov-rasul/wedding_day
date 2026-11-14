@@ -1,0 +1,463 @@
+@font-face {
+  font-family: 'Wedding Script';
+  src: url('assets/fonts/ImperialScript-Regul.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Wedding Names';
+  src: url('assets/fonts/BeauRivage-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Marck Script';
+  src: url('assets/fonts/MarckScript-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Great Vibes';
+  src: url('assets/fonts/GreatVibes-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Wedding Sans';
+  src: url('assets/fonts/GT_Super_Display_Lig.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Wedding Serif';
+  src: url('assets/fonts/Ovo-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+  --cream: #f9f0e0;
+  --paper: #f9f0e0;
+  --ink: #71614e;
+  --gold: #a57b35;
+  --deep-red: #690b18;
+  font-family: 'Wedding Sans', 'Wedding Serif', Georgia, serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  background: var(--cream);
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  color: var(--ink);
+  background: var(--cream);
+  font-size: 20px;
+  font-weight: 300;
+}
+
+button, a { -webkit-tap-highlight-color: transparent; }
+button { font: inherit; }
+[hidden] { display: none !important; }
+
+/* The entry envelope matches the original site's narrow, full-height canvas. */
+.envelope-screen,
+.opening-screen {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+.envelope-screen::before,
+.opening-screen::before {
+  position: absolute;
+  inset: 0;
+  content: '';
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 24%, rgb(120 84 34 / 6%) 100%);
+}
+
+.envelope-button,
+.opening-frame {
+  width: min(100vw, 440px, 56.31svh);
+  aspect-ratio: 941 / 1671;
+}
+
+.envelope-button {
+  position: relative;
+  display: block;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.envelope-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bottom_flower_1, .bottom_flower_2 {
+  position: absolute;
+  z-index: 5;
+  top: 566px;
+  width: 240px;
+}
+
+.bottom_flower_1 {
+  right: 40px;
+}
+
+.bottom_flower_2 {
+  left: 40px;
+}
+
+.seal-monogram {
+  position: absolute;
+  top: 51.7%;
+  left: 50%;
+  display: flex;
+  width: 21%;
+  aspect-ratio: 1;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(207 173 101 / 78%);
+  border-radius: 50%;
+  color: #d9bc77;
+  background: radial-gradient(circle, #70111c 0 69%, #5d0b14 73% 100%);
+  box-shadow: inset 0 0 0 3px rgb(109 11 24 / 82%), inset 0 0 0 5px rgb(193 151 70 / 48%);
+  font-family: 'Great Vibes', 'Wedding Names', 'Marck Script', cursive;
+  font-size: clamp(24px, 5.2vw, 40px);
+  line-height: 1;
+  text-shadow: 0 1px 1px rgb(255 224 160 / 30%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.seal-monogram span { margin: 0 .04em; font-size: .62em; }
+
+.envelope-hint {
+  position: absolute;
+  top: 65.3%;
+  left: 50%;
+  width: max-content;
+  color: #ac8c5c;
+  font-family: 'Wedding Serif', Georgia, serif;
+  font-size: clamp(9px, 1.15vw, 12px);
+  line-height: 1.5;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+}
+
+.envelope-hint::before {
+  display: block;
+  margin-bottom: 2px;
+  content: '⌄';
+  font-family: Georgia, serif;
+  font-size: .9em;
+  text-align: center;
+}
+
+.envelope-button:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+
+.opening-screen { z-index: 21; }
+.opening-frame {
+  position: relative;
+  display: grid;
+  height: auto;
+  place-items: center;
+  overflow: hidden;
+}
+.opening-video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.opening-monogram {
+  top: 50.5%;
+  width: 30%;
+  font-size: clamp(30px, 9vw, 46px);
+}
+.skip-opening {
+  position: absolute;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  padding: 9px 14px;
+  border: 1px solid rgb(167 128 55 / 45%);
+  border-radius: 999px;
+  color: var(--ink);
+  background: rgb(251 247 239 / 90%);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.invitation {
+  width: 100%;
+  min-height: 100svh;
+  padding: 0 16px 45px;
+  animation: page-arrive 800ms ease both;
+}
+
+.invitation-sheet {
+  position: relative;
+  width: min(100%, 575px);
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+.hero {
+  position: relative;
+  display: block;
+  width: min(100%, 450px, 56.25svh);
+  height: min(100svh, 800px);
+  min-height: min(100svh, 620px);
+  margin: 0 auto;
+  overflow: hidden;
+  isolation: isolate;
+  background: #eee4d3;
+  text-align: center;
+}
+
+.hero-video {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: '';
+  background: linear-gradient(180deg, rgb(255 248 231 / 5%), transparent 28%, rgb(255 248 231 / 8%));
+  pointer-events: none;
+}
+
+.hero-content { position: absolute; inset: 0; }
+.hero-kicker {
+  position: absolute;
+  top: 18.5%;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  color: #9e742f;
+  font-family: 'Wedding Script', 'Great Vibes', 'Marck Script', cursive;
+  font-size: clamp(31px, 8vw, 42px);
+  line-height: 1;
+}
+
+.hero-date {
+  position: absolute;
+  top: 24.5%;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  color: #a17b3c;
+  font-family: 'Wedding Serif', Georgia, serif;
+  font-size: clamp(22px, 5vw, 27px);
+  line-height: 1.15;
+}
+
+.hero h1 {
+  position: absolute;
+  top: 35.5%;
+  left: 0;
+  display: grid;
+  width: 100%;
+  gap: 0;
+  margin: 0;
+  color: #a77c32;
+  font-family: 'Wedding Names', 'Great Vibes', 'Marck Script', cursive;
+  font-size: clamp(65px, 17vw, 83px);
+  font-weight: 400;
+  line-height: .93;
+  text-shadow: 0 1px 1px rgb(255 255 255 / 55%);
+}
+
+.hero h1 i { margin: -2px 0 -5px; font-size: .55em; font-style: normal; line-height: .9; }
+.hero-note { display: none; }
+
+.scroll-cue {
+  position: absolute;
+  z-index: 1;
+  top: 64.5%;
+  left: 50%;
+  display: grid;
+  gap: 3px;
+  width: max-content;
+  color: #a37b3f;
+  font-family: 'Wedding Script', 'Great Vibes', 'Marck Script', cursive;
+  font-size: clamp(25px, 6.5vw, 34px);
+  line-height: 1;
+  text-decoration: none;
+  transform: translateX(-50%);
+}
+
+.scroll-cue span { font-family: Georgia, serif; font-size: .8em; animation: cue-bob 1.5s ease-in-out infinite; }
+
+.paper-panel {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 70px 55px 60px;
+  background-color: var(--paper);
+  background-image: url('assets/reference/ref_tild3134_623915249_2629494717.png');
+  background-position: center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+
+.welcome {
+  min-height: 390px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.welcome .eyebrow { margin: 0 0 9px; color: var(--gold); font-size: 16px; letter-spacing: .13em; }
+.welcome h2 {
+  max-width: 440px;
+  margin: 0 0 14px;
+  color: var(--gold);
+  font-family: 'Wedding Script', 'Great Vibes', 'Marck Script', cursive;
+  font-size: 44px;
+  font-weight: 400;
+  line-height: 1;
+}
+.welcome > p:not(.eyebrow):not(.welcome-signature) { max-width: 430px; margin: 0; font-size: 21px; line-height: 1.3; }
+.welcome-signature { z-index: 1; margin: 17px 0 0; color: var(--gold); font-family: 'Wedding Script', 'Great Vibes', 'Marck Script', cursive; font-size: 38px; }
+.paper-flower { position: absolute; z-index: 0; width: 30%; max-width: 165px; height: auto; object-fit: contain; pointer-events: none; }
+.paper-flower--top { top: 0; right: -5px; object-position: center; }
+.paper-flower--bottom { bottom: -8px; left: -5px; object-position: center; }
+.welcome > :not(.paper-flower) { position: relative; z-index: 1; }
+
+.countdown-section { padding: 24px 20px 50px; text-align: center; }
+.ornament { display: block; width: min(210px, 48%); max-height: 46px; margin: 0 auto 16px; object-fit: contain; }
+.countdown-section h2,
+.schedule-section h2,
+.location-section h2,
+.closing h2 {
+  margin: 0 0 19px;
+  color: #a17b3c;
+  font-family: 'Wedding Script', 'Great Vibes', 'Marck Script', cursive;
+  font-size: clamp(36px, 8vw, 44px);
+  font-weight: 400;
+  line-height: 1.06;
+}
+.countdown-section h2 { font-size: clamp(24px, 8vw, 40px); white-space: nowrap; }
+.countdown { display: flex; align-items: start; justify-content: center; gap: clamp(5px, 2.2vw, 16px); color: #a17b3c; }
+.countdown div { display: grid; min-width: 57px; gap: 3px; }
+.countdown strong { display: grid; height: 1em; overflow: hidden; font-family: 'Wedding Serif', Georgia, serif; font-size: clamp(32px, 7.4vw, 46px); font-weight: 400; line-height: 1; font-variant-numeric: tabular-nums; }
+.countdown-value { grid-area: 1 / 1; display: block; font: inherit; font-variant-numeric: inherit; white-space: nowrap; }
+.countdown-value--out { animation: countdown-roll-out 420ms cubic-bezier(.22, .61, .36, 1) both; }
+.countdown-value--in { animation: countdown-roll-in 420ms cubic-bezier(.22, .61, .36, 1) both; }
+.countdown div > span { font-family: 'Wedding Serif', Georgia, serif; font-size: 16px; }
+.countdown > i { padding-top: 2px; font-size: 27px; font-style: normal; }
+.countdown-caption { margin: 15px 0 0; font-size: 18px; }
+
+.schedule-section { padding-top: 57px; padding-bottom: 58px; text-align: center; }
+.schedule-section h2 { margin-bottom: 27px; }
+.schedule-corner { position: absolute; top: -7px; right: -20px; width: 40%; transform: rotate(3deg); pointer-events: none;}
+.ornament--small { width: min(140px, 35%); margin-bottom: 10px; }
+.timeline { position: relative; display: grid; gap: 0; max-width: 390px; margin: 0 auto; padding: 0; list-style: none; text-align: left; }
+.timeline::before { position: absolute; top: 20px; bottom: 20px; left: 50%; width: 1px; content: ''; background: rgb(167 128 55 / 40%); transform: translateX(-50%); }
+.timeline li { position: relative; display: grid; min-height: 88px; grid-template-columns: minmax(0, 1fr) 90px minmax(0, 1fr); grid-template-rows: minmax(88px, auto); align-items: center; gap: 0; }
+.timeline li::before { position: absolute; z-index: 2; top: 50%; left: 50%; width: 11px; height: 11px; border: 2px solid var(--paper); border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 1px rgb(167 128 55 / 45%); content: ''; transform: translate(-50%, -50%); }
+.timeline-flower { position: absolute; z-index: 5; top: 0; left: 50%; width: 46px; height: 46px; margin-left: -23px; object-fit: contain; pointer-events: none; transform: translateY(var(--flower-y, 0px)) rotate(-30deg); transition: transform 180ms cubic-bezier(.22, .61, .36, 1); will-change: transform; }
+.timeline time { grid-column: 3; grid-row: 1; align-self: center; color: #9a7438; font-family: 'Wedding Serif', Georgia, serif; font-size: 29px; font-variant-numeric: tabular-nums; text-align: left; }
+.timeline li span { grid-column: 1; grid-row: 1; align-self: center; font-family: 'Wedding Sans', 'Wedding Serif', Georgia, serif; font-size: 20px; font-weight: 300; line-height: 1.08; text-align: right; }
+
+.location-section { padding: 65px 30px 55px; text-align: center; }
+.location-section h2 { margin-bottom: 8px; }
+.venue-name { margin: 0 0 4px; color: #75604a; font-family: 'Wedding Sans', 'Wedding Serif', Georgia, serif; font-size: 25px; font-weight: 300; }
+.venue-address { margin: 0 0 14px; font-size: 19px; }
+.venue-illustration { display: block; width: min(100%, 350px); height: auto; margin: 13px auto 18px; mix-blend-mode: multiply; }
+.map-frame { position: relative; width: min(100%, 346px); aspect-ratio: 1; margin: 0 auto; overflow: hidden; border-radius: 16px; }
+.map-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
+.map-frame-art { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.map-open { position: absolute; z-index: 2; top: 14px; left: 14px; padding: 5px 9px; border-radius: 4px; color: #3d6388; background: rgb(255 255 255 / 90%); font-family: Arial, sans-serif; font-size: 13px; text-decoration: none; }
+
+.closing { position: relative; padding: 57px 28px 35px; overflow: hidden; text-align: center; }
+.closing .eyebrow { position: relative; margin: 0 0 8px; color: var(--gold); font-size: 15px; letter-spacing: .14em; }
+.closing h2 { position: relative; margin-bottom: 3px; }
+.closing-names { position: relative; margin: 0 0 24px; color: var(--gold); font-family: 'Wedding Names', 'Great Vibes', 'Marck Script', cursive; font-size: 48px; }
+.closing-names span { font-size: .64em; }
+.photo-placeholder { position: relative; display: grid; width: min(100%, 430px); aspect-ratio: 4 / 5; place-items: center; gap: 7px; margin: 0 auto; overflow: hidden; border: 1px solid rgb(167 128 55 / 55%); background: linear-gradient(145deg, #f9f5ec, #e8ddc8); color: #907849; font-family: 'Wedding Serif', Georgia, serif; font-size: 20px; line-height: 1.25; }
+.photo-placeholder::before, .photo-placeholder::after { position: absolute; width: 88%; height: 88%; border: 1px solid rgb(167 128 55 / 24%); content: ''; pointer-events: none; }
+.photo-placeholder::after { width: 82%; height: 82%; border-color: rgb(167 128 55 / 14%); }
+.placeholder-flower { z-index: 1; color: #ba9860; font-size: 46px; }
+.photo-placeholder span:last-child { z-index: 1; }
+.photo-flower { position: absolute; z-index: 2; width: 33%; height: auto; pointer-events: none; }
+.photo-flower--left { bottom: -3%; left: -3%; transform: rotate(6deg); }
+.photo-flower--right { top: 4%; right: -7%; width: 31%; transform: rotate(180deg); }
+.closing-date { margin: 22px 0 0; color: #96713a; font-family: 'Wedding Serif', Georgia, serif; letter-spacing: .12em; }
+
+.music-toggle { position: fixed; z-index: 19; right: max(22px, env(safe-area-inset-right)); bottom: max(22px, env(safe-area-inset-bottom)); display: grid; width: 56px; height: 56px; place-items: center; border: 0; border-radius: 50%; color: white; background: var(--deep-red); box-shadow: 0 6px 18px rgb(69 9 18 / 25%); cursor: pointer; transition: transform 180ms ease, background 180ms ease; }
+.music-toggle:hover { background: #8d1325; transform: scale(1.05); }
+.music-toggle span { position: relative; display: block; width: 18px; height: 18px; }
+.music-toggle.is-playing span::before, .music-toggle.is-playing span::after { position: absolute; top: 1px; width: 3px; height: 16px; border-radius: 1px; background: white; content: ''; }
+.music-toggle.is-playing span::before { left: 5px; }
+.music-toggle.is-playing span::after { right: 5px; }
+.music-toggle:not(.is-playing) span::before { position: absolute; top: 1px; left: 4px; width: 0; height: 0; border-top: 8px solid transparent; border-bottom: 8px solid transparent; border-left: 12px solid white; content: ''; }
+
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 700ms ease, transform 700ms ease; }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+@keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes page-arrive { from { opacity: 0; } to { opacity: 1; } }
+@keyframes cue-bob { 50% { transform: translateY(5px); } }
+@keyframes countdown-roll-out { to { opacity: .15; transform: translateY(-105%); } }
+@keyframes countdown-roll-in { from { opacity: .15; transform: translateY(105%); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 540px) {
+  body { font-size: 17px; }
+  .invitation { padding: 0 0 30px; }
+  .invitation-sheet { width: 100%; }
+  .hero { min-height: min(100svh, 620px); }
+  .hero h1 { font-size: clamp(60px, 17vw, 75px); }
+  .paper-panel { padding: 60px 25px 53px; }
+  .welcome { min-height: 365px; }
+  .welcome h2 { font-size: 39px; }
+  .welcome > p:not(.eyebrow):not(.welcome-signature) { font-size: 19px; }
+  .countdown div { min-width: 51px; }
+  .countdown span { font-size: 13px; }
+  .schedule-section { padding-inline: 20px; }
+  .timeline { max-width: 360px; }
+  .timeline time { font-size: 25px; }
+  .timeline li span { font-size: 18px; }
+  .location-section { padding-inline: 20px; }
+  .closing { padding-inline: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
