@@ -126,16 +126,16 @@ button { font: inherit; }
 .bottom_flower_1, .bottom_flower_2 {
   position: absolute;
   z-index: 5;
-  top: 566px;
+  bottom: -130px;
   width: 240px;
 }
 
 .bottom_flower_1 {
-  right: 40px;
+  right: -30px;
 }
 
 .bottom_flower_2 {
-  left: 40px;
+  left: -30px;
 }
 
 .seal-monogram {
@@ -232,12 +232,13 @@ button { font: inherit; }
 
 .hero {
   position: relative;
+  z-index: 2;
   display: block;
   width: min(100%, 450px, 56.25svh);
   height: min(100svh, 800px);
   min-height: min(100svh, 620px);
   margin: 0 auto;
-  overflow: hidden;
+  overflow: visible;
   isolation: isolate;
   background: #eee4d3;
   text-align: center;
@@ -337,6 +338,7 @@ button { font: inherit; }
 }
 
 .welcome {
+  z-index: 1;
   min-height: 390px;
   display: grid;
   place-items: center;
@@ -493,10 +495,14 @@ button { font: inherit; }
   .location-section { padding-inline: 20px; }
   .closing { padding-inline: 20px; }
   .bottom_flower_2 {
-    left: -40px;
+    left: -15px;
   }
   .bottom_flower_1 {
-    right: -40px;
+    right: -15px;
+  }
+  .bottom_flower_1, .bottom_flower_2 {
+    bottom: -115px;
+    width: 200px;
   }
 }
 
