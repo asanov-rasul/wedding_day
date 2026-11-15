@@ -10,12 +10,20 @@ const heroVideo = document.querySelector('.hero-video');
 const timeline = document.querySelector('.timeline');
 
 const weddingDate = new Date('2027-04-17T17:00:00+05:00');
+const criticalFonts = [
+  ['400 42px "Wedding Script"', 'Свадебный день Листайте вниз'],
+  ['400 83px "Wedding Names"', 'Расул Фарида'],
+  ['400 27px "Wedding Serif"', '17.04.27'],
+  ['300 20px "Wedding Sans"', 'Свадебное приглашение'],
+];
 let countdownTimer;
 let timelineUpdateFrame = 0;
 let openingRevealFrame = 0;
 let heroLoadingStarted = false;
 let musicLoadingStarted = false;
 let musicShouldPlay = false;
+let criticalFontsPromise;
+let revealPending = false;
 
 function isMediaFullyBuffered(media) {
   if (!media || !Number.isFinite(media.duration) || media.duration <= 0 || !media.buffered.length) return false;
@@ -31,8 +39,22 @@ function startHeroVideoLoading() {
   heroVideo.load();
 }
 
+function loadCriticalFonts() {
+  if (!document.fonts?.load) return Promise.resolve();
+  if (!criticalFontsPromise) {
+    criticalFontsPromise = Promise.allSettled(
+      criticalFonts.map(([font, sample]) => document.fonts.load(font, sample)),
+    ).then(() => undefined);
+  }
+  return criticalFontsPromise;
+}
+
+function startHeroVideoAfterFonts() {
+  loadCriticalFonts().then(startHeroVideoLoading);
+}
+
 function maybeStartHeroVideoLoading() {
-  if (isMediaFullyBuffered(openingVideo)) startHeroVideoLoading();
+  if (isMediaFullyBuffered(openingVideo)) startHeroVideoAfterFonts();
 }
 
 function startMusicLoading() {
@@ -162,21 +184,28 @@ async function playMusic() {
 }
 
 function revealPage() {
-  if (!invitation.hidden) return;
+  if (!invitation.hidden || revealPending) return;
+  revealPending = true;
   window.cancelAnimationFrame(openingRevealFrame);
   openingRevealFrame = 0;
-  window.clearInterval(countdownTimer);
-  openingVideo.pause();
-  envelopeScreen.hidden = true;
-  openingScreen.hidden = true;
-  invitation.hidden = false;
-  musicToggle.hidden = false;
-  startCountdown();
-  observeSections();
-  updateTimelineFlower();
-  playHeroWhenReady();
-  playMusic();
-  window.scrollTo({ top: 0, behavior: 'auto' });
+
+  loadCriticalFonts().finally(() => {
+    revealPending = false;
+    if (!invitation.hidden) return;
+
+    window.clearInterval(countdownTimer);
+    openingVideo.pause();
+    envelopeScreen.hidden = true;
+    openingScreen.hidden = true;
+    invitation.hidden = false;
+    musicToggle.hidden = false;
+    startCountdown();
+    observeSections();
+    updateTimelineFlower();
+    playHeroWhenReady();
+    playMusic();
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  });
 }
 
 function openInvitation() {
@@ -244,7 +273,7 @@ window.addEventListener('resize', updateTimelineFlower);
 
 // Keep the invitation usable if either video cannot be decoded.
 openingVideo.addEventListener('error', () => {
-  startHeroVideoLoading();
+  startHeroVideoAfterFonts();
   revealPage();
 }, { once: true });
 heroVideo.addEventListener('error', startMusicLoading, { once: true });
