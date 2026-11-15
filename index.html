@@ -37,8 +37,7 @@
     <main class="invitation" id="invitation" hidden>
       <div class="invitation-sheet">
         <header class="hero reveal">
-          <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-label="Анимированный фон с лебедями">
-            <source src="assets/media/swans.mp4" type="video/mp4" />
+          <video class="hero-video" muted loop playsinline preload="none" data-src="assets/media/swans.mp4" aria-label="Анимированный фон с лебедями">
           </video>
           <div class="hero-content">
             <p class="hero-kicker">Свадебный день</p>
@@ -59,7 +58,6 @@
         </section>
 
         <section class="countdown-section reveal" aria-labelledby="countdown-title">
-          <img class="ornament" src="assets/reference/ref_tild3637_ChatGPT_Image_May_25.png" alt="" />
           <h2 id="countdown-title">До нашей встречи осталось</h2>
           <div class="countdown" id="countdown" aria-live="off">
             <div><strong id="days">—</strong><span>дней</span></div>
@@ -123,7 +121,7 @@
       </div>
     </main>
 
-    <audio id="background-music" src="assets/media/music.mp3" loop preload="none"></audio>
+    <audio id="background-music" data-src="assets/media/music.mp3" loop preload="none"></audio>
     <button class="music-toggle" id="music-toggle" type="button" aria-label="Включить музыку" aria-pressed="false" hidden>
       <span aria-hidden="true"></span>
     </button>

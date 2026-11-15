@@ -13,6 +13,46 @@ const weddingDate = new Date('2027-04-17T17:00:00+05:00');
 let countdownTimer;
 let timelineUpdateFrame = 0;
 let openingRevealFrame = 0;
+let heroLoadingStarted = false;
+let musicLoadingStarted = false;
+let musicShouldPlay = false;
+
+function isMediaFullyBuffered(media) {
+  if (!media || !Number.isFinite(media.duration) || media.duration <= 0 || !media.buffered.length) return false;
+  return media.buffered.start(0) <= 0.1 && media.buffered.end(media.buffered.length - 1) >= media.duration - 0.15;
+}
+
+function startHeroVideoLoading() {
+  if (heroLoadingStarted || !heroVideo?.dataset.src) return;
+
+  heroLoadingStarted = true;
+  heroVideo.preload = 'auto';
+  heroVideo.src = heroVideo.dataset.src;
+  heroVideo.load();
+}
+
+function maybeStartHeroVideoLoading() {
+  if (isMediaFullyBuffered(openingVideo)) startHeroVideoLoading();
+}
+
+function startMusicLoading() {
+  if (musicLoadingStarted || !music.dataset.src) return;
+
+  musicLoadingStarted = true;
+  music.preload = 'auto';
+  music.src = music.dataset.src;
+  music.load();
+}
+
+function maybeStartMusicLoading() {
+  if (isMediaFullyBuffered(heroVideo)) startMusicLoading();
+}
+
+function playHeroWhenReady() {
+  if (!invitation.hidden && heroVideo?.currentSrc && heroVideo.readyState >= 2 && heroVideo.paused) {
+    heroVideo.play().catch(() => {});
+  }
+}
 
 function revealNearOpeningEnd() {
   openingRevealFrame = 0;
@@ -104,11 +144,19 @@ function setMusicState(isPlaying) {
 }
 
 async function playMusic() {
+  musicShouldPlay = true;
+  if (!music.getAttribute('src')) {
+    musicToggle.setAttribute('aria-pressed', 'true');
+    musicToggle.setAttribute('aria-label', 'Выключить музыку');
+    return;
+  }
+
   try {
     music.volume = 0.38;
     await music.play();
     setMusicState(true);
   } catch {
+    musicShouldPlay = false;
     setMusicState(false);
   }
 }
@@ -126,7 +174,7 @@ function revealPage() {
   startCountdown();
   observeSections();
   updateTimelineFlower();
-  if (heroVideo) heroVideo.play().catch(() => {});
+  playHeroWhenReady();
   playMusic();
   window.scrollTo({ top: 0, behavior: 'auto' });
 }
@@ -134,7 +182,6 @@ function revealPage() {
 function openInvitation() {
   envelopeScreen.hidden = true;
   openingScreen.hidden = false;
-  playMusic();
 
   openingVideo.currentTime = 0;
   openingVideo.play().then(() => {
@@ -168,19 +215,38 @@ skipOpening.addEventListener('click', revealPage);
 openingVideo.addEventListener('ended', revealPage);
 
 musicToggle.addEventListener('click', async () => {
-  if (music.paused) {
-    await playMusic();
-  } else {
+  if (musicShouldPlay) {
+    musicShouldPlay = false;
     music.pause();
     setMusicState(false);
+  } else {
+    await playMusic();
   }
 });
 
 music.addEventListener('play', () => setMusicState(true));
 music.addEventListener('pause', () => setMusicState(false));
 
+['progress', 'loadedmetadata', 'loadeddata', 'canplay'].forEach((eventName) => {
+  openingVideo.addEventListener(eventName, maybeStartHeroVideoLoading);
+  heroVideo.addEventListener(eventName, () => {
+    maybeStartMusicLoading();
+    playHeroWhenReady();
+  });
+});
+
+music.addEventListener('canplay', () => {
+  if (musicShouldPlay && !invitation.hidden) playMusic();
+});
+
 window.addEventListener('scroll', updateTimelineFlower, { passive: true });
 window.addEventListener('resize', updateTimelineFlower);
 
-// Keep the invitation usable if the opening animation cannot be decoded.
-openingVideo.addEventListener('error', revealPage, { once: true });
+// Keep the invitation usable if either video cannot be decoded.
+openingVideo.addEventListener('error', () => {
+  startHeroVideoLoading();
+  revealPage();
+}, { once: true });
+heroVideo.addEventListener('error', startMusicLoading, { once: true });
+maybeStartHeroVideoLoading();
+if (openingVideo.networkState === HTMLMediaElement.NETWORK_EMPTY) openingVideo.load();
