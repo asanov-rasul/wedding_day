@@ -492,6 +492,12 @@ button { font: inherit; }
   .timeline li span { font-size: 18px; }
   .location-section { padding-inline: 20px; }
   .closing { padding-inline: 20px; }
+  .bottom_flower_2 {
+    left: -40px;
+  }
+  .bottom_flower_1 {
+    right: -40px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
